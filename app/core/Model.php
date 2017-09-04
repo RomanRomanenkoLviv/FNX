@@ -1,7 +1,7 @@
 <?php
-
 class Model
 {
+	public $bd_name;
 
 	public function get_all(){
 		$result = get_data(false, $this->$bd_name, false, false,false, false, true);
@@ -18,4 +18,3 @@ class Model
 	    return $mysqli;
 	}
 }
-?>

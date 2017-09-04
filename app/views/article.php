@@ -1,33 +1,32 @@
 <section class="main articles">
-	<?php $article = json_decode($data, true);?>
+	<?php $article = $data;?>
 		<div class="article">
 			<h1><?= $article['title'] ?></h1>
 			<div class="content">
 				<div class="left">
 					<div class="author">Author(s): 
-					<?php include "application/models/Authors.php";
-						  include "application/models/Categories.php";
+					<?php 
 						$authors = json_decode($article['authors'], true);
 						$count = count($authors);
 						$i = 1;
-						$authorinfo = new Authors;
-						$categoryinfo = new Categories;
+						$authorinfo = $this->model('Authors');
+						$categoryinfo = $this->model('Categories');
 						$user = new Users;
 						if($count > 1){
 							foreach ($authors as $author) {
 								$info = $authorinfo->get_item($author); ?>
-								<a href="/author/<?= $info['id'] ?>" class="author"><?= $info['firstName'] ?> <?= $info['lastName'] ?></a>
+								<a href="/author/?id=<?= $info['id'] ?>" class="author"><?= $info['firstName'] ?> <?= $info['lastName'] ?></a>
 						  <?php echo ($i < $count)?', ':'';
 								$i++;
 							}
 						}else{
 							$info = $authorinfo->get_item($authors); ?>
-								<a href="/author/<?= $info['id'] ?>" class="author"><?= $info['firstName'] ?> <?= $info['lastName'] ?></a>
+								<a href="/author/?id=<?= $info['id'] ?>" class="author"><?= $info['firstName'] ?> <?= $info['lastName'] ?></a>
 				  <?php } ?>
 					</div>
 					<?php if(!empty($article['category_id'])){ 
 						$category = $categoryinfo->get_item($article['category_id']); ?>
-						<div class="category">Category: <a href="/category/<?= $article['category_id'] ?>" class="category"><?= $category['name'] ?></a></div>
+						<div class="category">Category: <a href="/category/?id=<?= $article['category_id'] ?>" class="category"><?= $category['name'] ?></a></div>
 					<?php } ?>
 					<div class="price">Price: <?= $article['price'] ?></div>
 					<?php if($article['price'] > 0) { 

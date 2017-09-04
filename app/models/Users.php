@@ -99,8 +99,8 @@ class Users extends Model
 						WHERE `id` = '{$id}'
 			");
 			$user = $res->fetch_assoc();
-			include "application/models/Articles.php";
-			$article_model = new Articles;
+			$Controller = new Controller;
+			$article_model = $Controller->model('Articles');
 			$article_info = $article_model->get_item($article_id);
 
 			if($user['wallet'] >= $article_info['price']){
